@@ -3,8 +3,11 @@ import openai
 from openai import OpenAI
 
 # 🔐 Initialisation du client OpenAI
-client = OpenAI(api_key="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")
-
+user_api_key = st.text_input("🔑 Entrez votre clé OpenAI :", type="password")
+client = OpenAI(api_key=user_api_key)
+if not user_api_key:
+    st.warning("Veuillez entrer votre clé API OpenAI pour continuer.")
+    st.stop()
 # 🎨 Interface
 st.set_page_config(page_title="Hub IA Créatif", layout="centered")
 st.title("🤖 Hub IA Créatif")
