@@ -12,7 +12,7 @@ else:
     try:
         client.chat.completions.create(model="gpt-4", messages=[{"role": "user", "content": "Test"}])
     except Exception as e:
-        st.error(f"Erreur de connexion : Vérifiez votre clé API.")
+        st.error(f"Erreur de connexion {e}: Vérifiez votre clé API.")
         st.stop()
 # 🎨 Interface
 st.set_page_config(page_title="Hub IA Créatif", layout="centered")
