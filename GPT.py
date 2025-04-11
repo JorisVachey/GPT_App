@@ -8,6 +8,12 @@ client = OpenAI(api_key=user_api_key)
 if not user_api_key:
     st.warning("Veuillez entrer votre clé API OpenAI pour continuer.")
     st.stop()
+else:
+    try:
+        client.chat.completions.create(model="gpt-4", messages=[{"role": "user", "content": "Test"}])
+    except Exception as e:
+        st.error(f"Erreur de connexion : Vérifiez votre clé API.")
+        st.stop()
 # 🎨 Interface
 st.set_page_config(page_title="Hub IA Créatif", layout="centered")
 st.title("🤖 Hub IA Créatif")
