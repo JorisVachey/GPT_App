@@ -10,7 +10,7 @@ if not user_api_key:
     st.stop()
 else:
     try:
-        client.chat.completions.create(model="gtp-4o", messages=[{"role": "user", "content": "Test"}])
+        client.chat.completions.create(model="gpt-4o", messages=[{"role": "user", "content": "Test"}])
     except Exception as e:
         st.error(f"Erreur de connexion {e}: Vérifiez votre clé API.")
         st.stop()
@@ -30,7 +30,7 @@ if mode == "💬 Chat GPT":
         if user_input.strip() != "":
             with st.spinner("ChatGPT réfléchit..."):
                 response = client.chat.completions.create(
-                    model="gtp-4o",
+                    model="gpt-4o",
                     messages=[{"role": "user", "content": user_input}]
                 )
                 message = response.choices[0].message.content.strip()
@@ -66,7 +66,7 @@ elif mode == "🌐 Générateur de site web":
         if prompt.strip() != "":
             with st.spinner("Je crée ton site..."):
                 response = client.chat.completions.create(
-                    model="gtp-4o",
+                    model="gpt-4o",
                     messages=[
                         {"role": "user", "content": f"Crée un site web simple en HTML/CSS basé sur cette description : {prompt}. Ne commente pas le code, retourne uniquement le code HTML complet avec le CSS inclus dans une balise <style>."}
                     ]
