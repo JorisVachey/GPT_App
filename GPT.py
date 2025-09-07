@@ -19,7 +19,7 @@ st.set_page_config(page_title="Hub IA Créatif", layout="centered")
 st.title("🤖 Hub IA Créatif")
 
 # 🚀 Choix du mode
-mode = st.sidebar.radio("Choisir une fonction :", ["💬 Chat GPT", "🎨 Image DALL·E", "🌐 Générateur de site web"])
+mode = st.sidebar.radio("Choisir une fonction :", ["💬 Chat GPT", "🎨 Image DALL·E"])
 
 # --- 💬 CHAT GPT ---
 if mode == "💬 Chat GPT":
@@ -57,39 +57,3 @@ elif mode == "🎨 Image DALL·E":
         else:
             st.warning("Tu dois écrire une description !")
 
-# --- 🌐 GÉNÉRATEUR DE SITE WEB ---
-elif mode == "🌐 Générateur de site web":
-    st.subheader("Crée un site web (HTML/CSS) à partir d’une description")
-    prompt = st.text_area("Décris le site que tu veux :", height=150)
-
-    if st.button("Générer le site"):
-        if prompt.strip() != "":
-            with st.spinner("Je crée ton site..."):
-                response = client.chat.completions.create(
-                    model="gpt-4o",
-                    messages=[
-                        {"role": "user", "content": f"Crée un site web simple en HTML/CSS basé sur cette description : {prompt}. Ne commente pas le code, retourne uniquement le code HTML complet avec le CSS inclus dans une balise <style>."}
-                    ]
-                )
-                html_code = response.choices[0].message.content.strip()
-
-                # Affiche le code généré
-                st.markdown("**Code HTML/CSS généré :**")
-                st.code(html_code, language='html')
-
-                # Rendu live
-                st.markdown("**Aperçu du site :**")
-                st.components.v1.html(html_code, height=600, scrolling=True)
-
-                # Edition manuelle
-                st.markdown("**Modifier le code HTML/CSS si besoin :**")
-                edited_code = st.text_area("Édite ici :", value=html_code, height=300)
-
-                # Nouveau rendu après édition
-                if st.button("Mettre à jour le rendu"):
-                    st.components.v1.html(edited_code, height=600, scrolling=True)
-
-                # Téléchargement
-                st.download_button("📥 Télécharger le code", edited_code, file_name="site.html")
-        else:
-            st.warning("Décris ton site pour que je puisse le générer !")
